@@ -1,0 +1,129 @@
+/* --- FULL CRT-RETRO COLOR SYSTEM --- */
+:root {
+	/* ============================================================
+	   GREY SCALE
+	   ============================================================ */
+	--elosnoc-g1: #0c0d10;
+	--elosnoc-g2: #101114;
+	--elosnoc-g3: #15171a;
+	--elosnoc-g4: #1a1c1f;
+	--elosnoc-g5: #22252a;
+	--elosnoc-g6: #242527;
+	--elosnoc-g7: #292a2c;
+	--elosnoc-g8: #2e2f31;
+	--elosnoc-g9: #333436;
+	--elosnoc-g10: #383a3b;
+	--elosnoc-g11: #3e4041;
+	--elosnoc-g12: #444647;
+	--elosnoc-g13: #4a4c4b;
+	--elosnoc-g14: #505151;
+	--elosnoc-g15: #565757;
+	--elosnoc-g16: #5c5d5d;
+	--elosnoc-g17: #626363;
+	--elosnoc-g18: #686969;
+	--elosnoc-g19: #6f6f6f;
+	--elosnoc-g20: #777676;
+	--elosnoc-g21: #838281;
+	--elosnoc-g22: #8e8d8c;
+	--elosnoc-g23: #9a9897;
+	--elosnoc-g24: #a6a4a3;
+	--elosnoc-g25: #b2afae;
+	--elosnoc-g26: #bebbb9;
+	--elosnoc-g27: #cac7c4;
+	--elosnoc-g28: #d6d3cf;
+	--elosnoc-g29: #e2ded9;
+	--elosnoc-g30: #eeebe5;
+	--elosnoc-g31: #f3f0ea;
+	--elosnoc-g32: #f6f3ed;
+	--elosnoc-g33: #faf7f1;
+	--elosnoc-g34: #fdfbf5;
+	--elosnoc-g35: #fffefa;
+
+	/* ============================================================
+	   GREEN CRT TINT
+	   ============================================================ */
+	--elosnoc-gr1: #111912;
+	--elosnoc-gr2: #162017;
+	--elosnoc-gr3: #1c281e;
+	--elosnoc-gr4: #223026;
+	--elosnoc-gr5: #28382e;
+	--elosnoc-gr6: #2e4036;
+	--elosnoc-gr7: #34483e;
+	--elosnoc-gr8: #3a5046;
+	--elosnoc-gr9: #40584f;
+	--elosnoc-gr10: #476258;
+	--elosnoc-gr11: #5b8f6f;
+	--elosnoc-gr12: #70b586;
+	--elosnoc-gr13: #86d89d;
+	--elosnoc-gr14: #9fffb6;
+
+	/* ============================================================
+	   AMBER CRT TINT
+	   ============================================================ */
+	--elosnoc-am1: #1a1510;
+	--elosnoc-am2: #201b15;
+	--elosnoc-am3: #26211a;
+	--elosnoc-am4: #2c271f;
+	--elosnoc-am5: #322d24;
+	--elosnoc-am6: #383329;
+	--elosnoc-am7: #3e392e;
+	--elosnoc-am8: #443f33;
+	--elosnoc-am9: #4a4538;
+	--elosnoc-am10: #504b3d;
+	--elosnoc-am11: #6f634c;
+	--elosnoc-am12: #8c7a5d;
+	--elosnoc-am13: #b4966f;
+	--elosnoc-am14: #ffd9a8;
+
+	/* ============================================================
+	   RETRO RGB SOFT
+	   ============================================================ */
+	--elosnoc-rt-bg: #0c0d12;
+	--elosnoc-rt-cyan-dark: #3a8fa1;
+	--elosnoc-rt-cyan: #7eebff;
+	--elosnoc-rt-cyan-light: #c5f9ff;
+	--elosnoc-rt-magenta-dark: #9e4d87;
+	--elosnoc-rt-magenta: #ff96e3;
+	--elosnoc-rt-magenta-light: #ffcaf4;
+	--elosnoc-rt-blue-dark: #405a9a;
+	--elosnoc-rt-blue: #7aa7ff;
+	--elosnoc-rt-blue-light: #c7d7ff;
+	--elosnoc-rt-yellow-dark: #a89e44;
+	--elosnoc-rt-yellow: #fff49a;
+	--elosnoc-rt-yellow-light: #fff9cd;
+	--elosnoc-rt-white: #ededed;
+	--elosnoc-rt-white-soft: #f7f7f7;
+	--elosnoc-rt-blue-accent: #8bc5ff;
+
+	/* ============================================================
+	   UI UTILITY COLORS
+	   ============================================================ */
+	--elosnoc-bg-deep: #0d0e10;
+	--elosnoc-bg-base: #111315;
+	--elosnoc-bg-soft: #16181a;
+	--elosnoc-surface-1: #1f2124;
+	--elosnoc-surface-2: #292c2f;
+	--elosnoc-surface-3: #323539;
+	--elosnoc-border: #404349;
+	--elosnoc-border-strong: #4e5157;
+	--elosnoc-text-1: #e5e7e9;
+	--elosnoc-text-2: #bdc0c3;
+	--elosnoc-text-3: #8d9094;
+	--elosnoc-light-bg: #faf8f4;
+	--elosnoc-light-surface: #e8e6e1;
+	--elosnoc-light-border: #bfbcb7;
+	--elosnoc-light-text-1: #2e2f31;
+	--elosnoc-light-text-2: #515355;
+	--elosnoc-light-text-3: #76787a;
+
+	/* ============================================================
+	   SPECIAL ACCENTS
+	   ============================================================ */
+	--elosnoc-ac-glow-green: #c7ffd2;
+	--elosnoc-ac-glow-amber: #ffe1b2;
+	--elosnoc-ac-glow-blue: #8bc5ff;
+	--elosnoc-ac-glow-magenta: #ffcaf4;
+	--elosnoc-ac-dim-green: #2f7f41;
+	--elosnoc-ac-dim-amber: #bf7f33;
+	--elosnoc-ac-dim-blue: #405a9a;
+}

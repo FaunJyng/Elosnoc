@@ -1,5 +1,6 @@
 {
 	"useTabs": true,
+	"tabWidth": 3,
 	"singleQuote": true,
 	"trailingComma": "none",
 	"printWidth": 100,
@@ -11,5 +12,6 @@
 				"parser": "svelte"
 			}
 		}
-	]
+	],
+	"svelteSortOrder": "styles-markup-scripts-options"
 }

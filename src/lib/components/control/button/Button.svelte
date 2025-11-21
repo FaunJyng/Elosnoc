@@ -1,73 +1,123 @@
 <style>
 	button {
 		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-	}
-
-	.content-area {
-		padding: 0 16px;
-		line-height: var(--line-height);
-	}
-
-	.mid-area,
-	.top-area,
-	.bot-area {
-		display: flex;
-		width: 100%;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: center;
+		border-top: 1px solid var(--primary-foreground);
+		border-right: 1px solid var(--primary-foreground);
+		border-left: 3px solid var(--primary-foreground);
+		border-bottom: 3px solid var(--primary-foreground);
+	}
+
+	.label,
+	.icon {
+		background-color: transparent;
+	}
+
+	.label {
+		padding: calc(var(--line-height) / 2) var(--line-height);
+	}
+
+	.icon {
+		display: flex;
+		height: -webkit-fill-available;
+		align-items: center;
+		justify-content: center;
+		padding-left: calc(var(--line-height) / 1.5);
+		padding-right: calc(var(--line-height) / 1.5);
+	}
+
+	.icon-front {
+		border-right: 1px solid var(--primary-foreground);
+	}
+
+	.icon-back {
+		border-left: 1px solid var(--primary-foreground);
 	}
 </style>
 
-{#snippet main()}
-	<div class="top-area">
-		<DownRightLine down={{ weight: 'bold' }} />
-		<HLine width={contentClientWidth} />
-		<DownLeftLine />
-	</div>
-	<div class="mid-area">
-		<VLine height={contentClientHeight} weight="bold" />
-		<p bind:this={content} class="content-area">
-			{label}
-		</p>
-		<VLine height={contentClientHeight} />
-	</div>
-	<div class="bot-area">
-		<UpRightLine up={{ weight: 'bold' }} right={{ weight: 'bold' }} />
-		<HLine weight="bold" width={contentClientWidth} />
-		<UpLeftLine left={{ weight: 'bold' }} />
-	</div>
-{/snippet}
-
-<button {...handlers}>
-	{@render main()}
+<button
+	onmousedown={() => (mouseState = ButtonMouseState.Mousedown)}
+	onmouseup={() => (mouseState = ButtonMouseState.Mouseup)}
+	onmouseleave={() => (mouseState = ButtonMouseState.Mouseleave)}
+	onmouseenter={() => (mouseState = ButtonMouseState.Mouseenter)}
+	bind:this={ref}
+	{...rest}
+	style:background-color={mouseState === ButtonMouseState.Mousedown
+		? 'var(--primary-hover)'
+		: 'var(--primary)'}
+	style:color={mouseState === ButtonMouseState.Mousedown
+		? 'var(--primary-foreground-hover)'
+		: 'var(--primary-foreground)'}
+	style:border-left-width={mouseState === ButtonMouseState.Mouseenter ||
+	mouseState === ButtonMouseState.Mouseup
+		? '1px'
+		: '3px'}
+	style:border-bottom-width={mouseState === ButtonMouseState.Mouseenter ||
+	mouseState === ButtonMouseState.Mouseup
+		? '1px'
+		: '3px'}
+>
+	{#if icon}
+		{#if iconPosition === 'back'}
+			<div class="label">
+				{@render children?.()}
+			</div>
+			<div
+				class="icon icon-back"
+				style:border-left-color={mouseState === ButtonMouseState.Mousedown
+					? 'var(--primary-foreground-hover)'
+					: 'var(--primary-foreground)'}
+			>
+				{@render icon?.()}
+			</div>
+		{:else}
+			<div
+				class="icon icon-front"
+				style:border-right-color={mouseState === ButtonMouseState.Mousedown
+					? 'var(--primary-foreground-hover)'
+					: 'var(--primary-foreground)'}
+			>
+				{@render icon?.()}
+			</div>
+			<div class="label">
+				{@render children?.()}
+			</div>
+		{/if}
+	{:else}
+		<div class="label">
+			{@render children?.()}
+		</div>
+	{/if}
 </button>
 
 <script module>
-	export type ButtonProps = {
-		label: string;
-		handlers?: SvelteMouseEvent<HTMLButtonElement>;
-	};
+	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import { type Snippet } from 'svelte';
+
+	export interface ButtonProps {
+		ref?: HTMLButtonElement | null;
+		icon?: Snippet;
+		mouseState?: ButtonMouseState;
+		iconPosition?: 'front' | 'back';
+	}
+
+	export const ButtonMouseState = {
+		Mouseenter: 'Mouseenter',
+		Mouseleave: 'Mouseleave',
+		Mousedown: 'Mousedown',
+		Mouseup: 'Mouseup'
+	} as const;
+	export type ButtonMouseState = (typeof ButtonMouseState)[keyof typeof ButtonMouseState];
 </script>
 
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import type { SvelteMouseEvent } from '$lib/utils/svelte-mouse-event.js';
-	import HLine from '$lib/components/svg/HorizontalLine.svelte';
-	import VLine from '$lib/components/svg/VerticalLine.svelte';
-	import DownRightLine from '$lib/components/svg/DownRightLine.svelte';
-	import DownLeftLine from '$lib/components/svg/DownLeftLine.svelte';
-	import UpRightLine from '$lib/components/svg/UpRightLine.svelte';
-	import UpLeftLine from '$lib/components/svg/UpLeftLine.svelte';
-
-	let { label, handlers }: ButtonProps = $props();
-	let content: HTMLParagraphElement;
-	let contentClientWidth: number = $state.raw(0);
-	let contentClientHeight: number = $state.raw(0);
-
-	onMount(() => {
-		contentClientWidth = content.clientWidth;
-		contentClientHeight = content.clientHeight;
-	});
+	let {
+		children,
+		ref = $bindable(null),
+		mouseState = $bindable('Mouseleave'),
+		icon = undefined,
+		iconPosition = 'front',
+		...rest
+	}: ButtonProps & { children?: Snippet } & HTMLButtonAttributes = $props();
 </script>

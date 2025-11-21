@@ -1,8 +1,9 @@
 <style></style>
 
-<div>
-	<Button label="Button" />
-</div>
+<Button iconPosition="back">Click</Button>
+
+<script module>
+</script>
 
 <script>
 	import Button from '$lib/components/control/button/Button.svelte';

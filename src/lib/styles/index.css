@@ -1,10 +1,8 @@
-/* FONTS */
+/* --- IMPORTS --- */
 @import url('./fonts/iosevka/iosevka.css');
-
-/* COLORS */
 @import url('./color.css');
 
-/* RESETS */
+/* --- RESETS --- */
 *,
 *::before,
 *::after {
@@ -82,19 +80,19 @@ html:focus-within {
 	scroll-behavior: smooth;
 }
 
-/* --- Font --- */
+/* --- FOUNDATION VARIABLES --- */
 :root {
 	--monospace:
-		'Iosevka Web', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-		'DejaVu Sans Mono', 'Roboto Mono', 'Noto Sans Mono';
+		'Iosevka Web', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'DejaVu Sans Mono',
+		'Roboto Mono', 'Noto Sans Mono';
 
 	--sans-serif:
-		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans',
-		sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 
 	--serif:
-		'New York', Georgia, 'Times New Roman', Times, 'Noto Serif', 'Liberation Serif', serif,
-		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+		'New York', Georgia, 'Times New Roman', Times, 'Noto Serif', 'Liberation Serif', serif, 'Apple Color Emoji',
+		'Segoe UI Emoji', 'Segoe UI Symbol';
 
 	--fs-xs: 12px;
 	--fs-sm: 14px;
@@ -119,47 +117,124 @@ html:focus-within {
 	--lh-6xl: calc(var(--fs-6xl) + 4px);
 }
 
-/* --- VARIABLES FOR CONFIGURATION --- */
+/* --- SEMANTIC VARIABLES --- */
+
 :root {
-	/* --- TYPOGRAPHY --- */
-	--font-family: var(--monospace);
-	--font-size: var(--fs-md);
-	--line-height: var(--lh-md);
-
-	/* ----- PRIMARY ----- */
+	/* ----- Primary ----- */
 	--primary: var(--elosnoc-g35);
-	--primary-foreground: var(--elosnoc-g5);
+	--primary-fg: var(--elosnoc-g5);
 
-	/* ----- PRIMARY INTERACTIONS ----- */
-	--primary-hover: var(--elosnoc-g5);
-	--primary-foreground-hover: var(--elosnoc-g35);
-	--primary-active: ;
-	--primary-foreground-active: ;
-	--primary-pressed: ;
-	--primary-foreground-pressed: ;
-	--primary-focus: ;
-	--primary-foreground-focus: ;
-	--primary-selected: ;
-	--primary-foreground-selected: ;
-	--primary-muted: ;
-	--primary-foreground-muted: ;
+	--primary-inverted: var(--elosnoc-g5);
+	--primary-fg-inverted: var(--elosnoc-g35);
+}
 
-	/* ----- MOUSE EVENTS ----- */
-	--primary-mouseenter: ;
-	--primary-mouseleave: ;
-	--primary-mousedown: ;
-	--primary-mouseup: ;
-	--primary-onclick: ;
+/* --- COMPONENTS VARIABLES --- */
 
-	/* ----- PRIMARY STATEFUL TOKENS ----- */
-	--primary-border: ;
-	--primary-border-hover: ;
-	--primary-outline: ;
-	--primary-outline-focus: ;
-	--primary-ring: ;
+/* --- Button --- */
+:root {
+	/* --- Primary --- */
+	--btn-primary-bg-mouseleave: var(--primary);
+	--btn-primary-bg-mouseenter: var(--primary);
+	--btn-primary-bg-mouseup: var(--primary);
+	--btn-primary-bg-mousedown: var(--primary-inverted);
 
-	--primary-disabled: ;
-	--primary-disabled-foreground: ;
+	--btn-primary-fg-mouseleave: var(--primary-fg);
+	--btn-primary-fg-mouseenter: var(--primary-fg);
+	--btn-primary-fg-mouseup: var(--primary-fg);
+	--btn-primary-fg-mousedown: var(--primary-fg-inverted);
+
+	/* bm = border main */
+	--btn-primary-bm-color-mouseleave: var(--btn-primary-fg-mouseleave);
+	--btn-primary-bm-color-mouseenter: var(--btn-primary-fg-mouseenter);
+	--btn-primary-bm-color-mousedown: var(--btn-primary-fg-mousedown);
+	--btn-primary-bm-color-mouseup: var(--btn-primary-fg-mouseup);
+
+	/* bi = border icon */
+	--btn-primary-bi-color-mouseleave: var(--btn-primary-fg-mouseleave);
+	--btn-primary-bi-color-mouseenter: var(--btn-primary-fg-mouseenter);
+	--btn-primary-bi-color-mousedown: var(--btn-primary-fg-mousedown);
+	--btn-primary-bi-color-mouseup: var(--btn-primary-fg-mouseup);
+
+	/* tb = top border */
+	--btn-primary-tb-width-mouseleave: 1px;
+	--btn-primary-tb-width-mouseenter: 1px;
+	--btn-primary-tb-width-mouseup: 1px;
+	--btn-primary-tb-width-mousedown: 1px;
+
+	/* rb = right border */
+	--btn-primary-rb-width-mouseleave: 1px;
+	--btn-primary-rb-width-mouseenter: 1px;
+	--btn-primary-rb-width-mouseup: 1px;
+	--btn-primary-rb-width-mousedown: 1px;
+
+	/* bb = bottom border */
+	--btn-primary-bb-width-mouseleave: 3px;
+	--btn-primary-bb-width-mouseenter: 1px;
+	--btn-primary-bb-width-mouseup: 1px;
+	--btn-primary-bb-width-mousedown: 1px;
+
+	/* lb = left border */
+	--btn-primary-lb-width-mouseleave: 3px;
+	--btn-primary-lb-width-mouseenter: 1px;
+	--btn-primary-lb-width-mouseup: 1px;
+	--btn-primary-lb-width-mousedown: 1px;
+
+	/* --- Ghost --- */
+	--btn-ghost-bg-mouseleave: var(--primary);
+	--btn-ghost-bg-mouseenter: color-mix(in oklch shorter hue, var(--primary) 100%, var(--elosnoc-g5) 15%);
+	--btn-ghost-bg-mouseup: color-mix(in oklch shorter hue, var(--primary) 100%, var(--elosnoc-g5) 15%);
+	--btn-ghost-bg-mousedown: var(--primary-inverted);
+
+	--btn-ghost-fg-mouseleave: var(--primary-fg);
+	--btn-ghost-fg-mouseenter: var(--primary-fg);
+	--btn-ghost-fg-mouseup: var(--primary-fg);
+	--btn-ghost-fg-mousedown: var(--primary-fg-inverted);
+
+	--btn-ghost-bm-color-mouseleave: var(--btn-ghost-fg-mouseleave);
+	--btn-ghost-bm-color-mouseenter: var(--btn-ghost-fg-mouseenter);
+	--btn-ghost-bm-color-mousedown: var(--btn-ghost-fg-mousedown);
+	--btn-ghost-bm-color-mouseup: var(--btn-ghost-fg-mouseup);
+
+	--btn-ghost-bi-color-mouseleave: color-mix(in oklch shorter hue, var(--primary) 100%, var(--elosnoc-g5) 35%);
+	--btn-ghost-bi-color-mouseenter: color-mix(in oklch shorter hue, var(--primary) 100%, var(--elosnoc-g5) 55%);
+	--btn-ghost-bi-color-mousedown: var(--btn-primary-fg-mousedown);
+	--btn-ghost-bi-color-mouseup: color-mix(in oklch shorter hue, var(--primary) 100%, var(--elosnoc-g5) 55%);
+
+	--btn-ghost-tb-width-mouseleave: 0px;
+	--btn-ghost-tb-width-mouseenter: 0px;
+	--btn-ghost-tb-width-mouseup: 0px;
+	--btn-ghost-tb-width-mousedown: 0px;
+
+	--btn-ghost-rb-width-mouseleave: 0px;
+	--btn-ghost-rb-width-mouseenter: 0px;
+	--btn-ghost-rb-width-mouseup: 0px;
+	--btn-ghost-rb-width-mousedown: 0px;
+
+	--btn-ghost-bb-width-mouseleave: 0px;
+	--btn-ghost-bb-width-mouseenter: 0px;
+	--btn-ghost-bb-width-mouseup: 0px;
+	--btn-ghost-bb-width-mousedown: 0px;
+
+	--btn-ghost-lb-width-mouseleave: 0px;
+	--btn-ghost-lb-width-mouseenter: 0px;
+	--btn-ghost-lb-width-mouseup: 0px;
+	--btn-ghost-lb-width-mousedown: 0px;
+}
+
+/* --- Icon --- */
+
+:root {
+	/* --- Material Icons --- */
+	--mat-sm: calc(var(--fs-xs) + 4px);
+	--mat-sm: calc(var(--fs-sm) + 4px);
+	--mat-md: calc(var(--fs-md) + 4px);
+	--mat-lg: calc(var(--fs-lg) + 4px);
+	--mat-xl: calc(var(--fs-xl) + 4px);
+	--mat-2xl: calc(var(--fs-2xl) + 4px);
+	--mat-3xl: calc(var(--fs-3xl) + 4px);
+	--mat-4xl: calc(var(--fs-4xl) + 4px);
+	--mat-5xl: calc(var(--fs-5xl) + 4px);
+	--mat-6xl: calc(var(--fs-6xl) + 4px);
 }
 
 *,
@@ -167,11 +242,6 @@ body,
 html {
 	background-color: var(--primary);
 	font-family: var(--monospace), monospace;
-	font-size: var(--font-size);
-	line-height: var(--line-height);
-}
-
-svg {
-	stroke-linecap: square;
-	stroke-linejoin: miter;
+	font-size: var(--fs-md);
+	line-height: var(--lh-md);
 }

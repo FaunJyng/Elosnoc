@@ -3,11 +3,25 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		border-top: solid var(--primary-foreground);
-		border-right: solid var(--primary-foreground);
-		border-left: solid var(--primary-foreground);
-		border-bottom: solid var(--primary-foreground);
 		position: relative;
+		cursor: pointer;
+		background-color: var(--btn-bg-color-default);
+		color: var(--btn-color-default);
+		border-top-width: var(--btn-tb-width, var(--btn-tb-width-default));
+		border-top-style: var(--btn-tb-style, var(--btn-tb-style-default));
+		border-top-color: var(--btn-tb-color, var(--btn-tb-color-default));
+		/*  */
+		border-bottom-width: var(--btn-bb-width, var(--btn-bb-width-default));
+		border-bottom-style: var(--btn-bb-style, var(--btn-bb-style-default));
+		border-bottom-color: var(--btn-bb-color, var(--btn-bb-color-default));
+		/*  */
+		border-right-width: var(--btn-rb-width, var(--btn-rb-width-default));
+		border-right-style: var(--btn-rb-style, var(--btn-rb-style-default));
+		border-right-color: var(--btn-rb-color, var(--btn-rb-color-default));
+		/*  */
+		border-left-width: var(--btn-lb-width, var(--btn-lb-width-default));
+		border-left-style: var(--btn-lb-style, var(--btn-lb-style-default));
+		border-left-color: var(--btn-lb-color, var(--btn-lb-color-default));
 	}
 
 	.label,
@@ -16,7 +30,7 @@
 	}
 
 	.label {
-		padding: calc(var(--line-height) / 2) var(--line-height);
+		padding: calc(var(--lh-md) / 3) calc(var(--lh-md) / 1.5);
 	}
 
 	.icon {
@@ -27,20 +41,22 @@
 	}
 
 	.icon-with-label {
-		padding-left: calc(var(--line-height) / 1.5);
-		padding-right: calc(var(--line-height) / 1.5);
+		padding-left: calc(var(--lh-md) / 2);
+		padding-right: calc(var(--lh-md) / 2);
 	}
 
 	.icon-front {
-		border-right: 1px solid var(--primary-foreground);
+		border-right: 1px solid;
+		border-right-color: var(--icon-rb-color);
 	}
 
 	.icon-back {
-		border-left: 1px solid var(--primary-foreground);
+		border-left: 1px solid;
+		border-left-color: var(--icon-lb-color);
 	}
 
 	.icon-only {
-		padding: calc(var(--line-height) / 2) calc(var(--line-height) / 1.5);
+		padding: calc(var(--lh-md) / 2) calc(var(--lh-md) / 1.5);
 	}
 
 	.overlay {
@@ -56,36 +72,28 @@
 {#if mode === 'normal'}
 	<button
 		{...htmlButtonAttributes}
-		style:background-color={mouseState === ButtonMouseState.Mousedown
-			? 'var(--primary-hover)'
-			: 'var(--primary)'}
-		style:color={mouseState === ButtonMouseState.Mousedown
-			? 'var(--primary-foreground-hover)'
-			: 'var(--primary-foreground)'}
-		style:border-top-width={mouseState === ButtonMouseState.Mouseenter ||
-		mouseState === ButtonMouseState.Mouseup
-			? `${border?.top?.widthOnhover}px`
-			: `${border?.top?.widthNormal}px`}
-		style:border-bottom-width={mouseState === ButtonMouseState.Mouseenter ||
-		mouseState === ButtonMouseState.Mouseup
-			? `${border?.bottom?.widthOnhover}px`
-			: `${border?.bottom?.widthNormal}px`}
-		style:border-left-width={mouseState === ButtonMouseState.Mouseenter ||
-		mouseState === ButtonMouseState.Mouseup
-			? `${border?.left?.widthOnhover}px`
-			: `${border?.left?.widthNormal}px`}
-		style:border-right-width={mouseState === ButtonMouseState.Mouseenter ||
-		mouseState === ButtonMouseState.Mouseup
-			? `${border?.right?.widthOnhover}px`
-			: `${border?.right?.widthNormal}px`}
+		style:--btn-bg-color-default="var(--btn-{style}-bg-{mouseState})"
+		style:--btn-color-default="var(--btn-{style}-fg-{mouseState})"
+		style:--btn-tb-width-default="var(--btn-{style}-tb-width-{mouseState})"
+		style:--btn-tb-style-default="solid"
+		style:--btn-tb-color-default="var(--btn-{style}-bm-color-{mouseState})"
+		style:--btn-bb-width-default="var(--btn-{style}-bb-width-{mouseState})"
+		style:--btn-bb-style-default="solid"
+		style:--btn-bb-color-default="var(--btn-{style}-bm-color-{mouseState})"
+		style:--btn-rb-width-default="var(--btn-{style}-rb-width-{mouseState})"
+		style:--btn-rb-style-default="solid"
+		style:--btn-rb-color-default="var(--btn-{style}-bm-color-{mouseState})"
+		style:--btn-lb-width-default="var(--btn-{style}-lb-width-{mouseState})"
+		style:--btn-lb-style-default="solid"
+		style:--btn-lb-color-default="var(--btn-{style}-bm-color-{mouseState})"
 	>
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
 			class="overlay"
-			onmousedown={() => (mouseState = ButtonMouseState.Mousedown)}
-			onmouseup={() => (mouseState = ButtonMouseState.Mouseup)}
-			onmouseleave={() => (mouseState = ButtonMouseState.Mouseleave)}
-			onmouseenter={() => (mouseState = ButtonMouseState.Mouseenter)}
+			onmousedown={() => (mouseState = ButtonMouseState.mousedown)}
+			onmouseup={() => (mouseState = ButtonMouseState.mouseup)}
+			onmouseleave={() => (mouseState = ButtonMouseState.mouseleave)}
+			onmouseenter={() => (mouseState = ButtonMouseState.mouseenter)}
 		></div>
 		{#if children && !iconNormal}
 			<!-- Label + No icon -->
@@ -94,7 +102,7 @@
 			</div>
 		{:else if iconNormal && !children}
 			<!-- No label + Icon -->
-			{#if iconOnclick && mouseState === ButtonMouseState.Mousedown}
+			{#if iconOnclick && mouseState === ButtonMouseState.mousedown}
 				<div class={['icon', 'icon-only']}>
 					{@render iconOnclick()}
 				</div>
@@ -109,45 +117,27 @@
 				<div class="label">
 					{@render children()}
 				</div>
-				{#if iconOnclick && mouseState === ButtonMouseState.Mousedown}
-					<div
-						class={['icon', 'icon-with-label', 'icon-back', 'icon-only']}
-						style:border-left-color={mouseState === ButtonMouseState.Mousedown
-							? 'var(--primary-foreground-hover)'
-							: 'var(--primary-foreground)'}
-					>
+				<div
+					class={['icon', 'icon-with-label', 'icon-back']}
+					style:--icon-lb-color="var(--btn-{style}-bi-color-{mouseState})"
+				>
+					{#if iconOnclick && mouseState === ButtonMouseState.mousedown}
 						{@render iconOnclick()}
-					</div>
-				{:else}
-					<div
-						class={['icon', 'icon-with-label', 'icon-back']}
-						style:border-left-color={mouseState === ButtonMouseState.Mousedown
-							? 'var(--primary-foreground-hover)'
-							: 'var(--primary-foreground)'}
-					>
+					{:else}
 						{@render iconNormal()}
-					</div>
-				{/if}
+					{/if}
+				</div>
 			{:else}
-				{#if iconOnclick && mouseState === ButtonMouseState.Mousedown}
-					<div
-						class={['icon', 'icon-with-label', 'icon-front']}
-						style:border-right-color={mouseState === ButtonMouseState.Mousedown
-							? 'var(--primary-foreground-hover)'
-							: 'var(--primary-foreground)'}
-					>
+				<div
+					class={['icon', 'icon-with-label', 'icon-front']}
+					style:--icon-rb-color="var(--btn-{style}-bi-color-{mouseState})"
+				>
+					{#if iconOnclick && mouseState === ButtonMouseState.mousedown}
 						{@render iconOnclick()}
-					</div>
-				{:else}
-					<div
-						class={['icon', 'icon-with-label', 'icon-front']}
-						style:border-right-color={mouseState === ButtonMouseState.Mousedown
-							? 'var(--primary-foreground-hover)'
-							: 'var(--primary-foreground)'}
-					>
+					{:else}
 						{@render iconNormal()}
-					</div>
-				{/if}
+					{/if}
+				</div>
 				<div class="label">
 					{@render children?.()}
 				</div>
@@ -162,63 +152,29 @@
 	import { getButtonGroupContext } from './ButtonGroup.svelte';
 
 	export const ButtonMouseState = {
-		Mouseenter: 'Mouseenter',
-		Mouseleave: 'Mouseleave',
-		Mousedown: 'Mousedown',
-		Mouseup: 'Mouseup'
+		mouseenter: 'mouseenter',
+		mouseleave: 'mouseleave',
+		mousedown: 'mousedown',
+		mouseup: 'mouseup',
 	} as const;
 	export type ButtonMouseState = (typeof ButtonMouseState)[keyof typeof ButtonMouseState];
 
-	export type ButtonBorderStyle = Partial<{
-		widthNormal: number;
-		widthOnhover: number;
-		widthOnclick: number;
-		style: 'solid' | 'dashed';
-	}>;
+	export type ButtonMode = 'group' | 'normal';
 
-	export type ButtonBorder = Partial<{
-		top: ButtonBorderStyle;
-		bottom: ButtonBorderStyle;
-		left: ButtonBorderStyle;
-		right: ButtonBorderStyle;
-	}>;
-
-	export const ButtonBorderDefaultStyle = {
-		top: {
-			widthNormal: 1,
-			widthOnhover: 1,
-			style: 'solid'
-		},
-		bottom: {
-			widthNormal: 3,
-			widthOnhover: 1,
-			style: 'solid'
-		},
-		left: {
-			widthNormal: 3,
-			widthOnhover: 1,
-			style: 'solid'
-		},
-		right: {
-			widthNormal: 1,
-			widthOnhover: 1,
-			style: 'solid'
-		}
-	} as const;
-
-	export type ButtonMode = 'ingroup' | 'normal';
+	export type ButtonStyle = 'primary' | 'secondary' | 'ghost' | 'disabled';
 
 	export interface ButtonCustomProps {
 		instance?: HTMLButtonElement;
 		iconNormal?: Snippet;
 		iconOnclick?: Snippet;
-		mouseState?: ButtonMouseState;
+		children?: Snippet;
+		style?: ButtonStyle;
 		iconPosition?: 'front' | 'back';
-		border?: ButtonBorder;
+		mouseState?: ButtonMouseState;
 		mode?: ButtonMode;
 	}
 
-	export type ButtonProps = ButtonCustomProps & { children?: Snippet } & HTMLButtonAttributes;
+	export type ButtonProps = ButtonCustomProps & HTMLButtonAttributes;
 </script>
 
 <script lang="ts">
@@ -226,25 +182,24 @@
 		instance = $bindable(),
 		iconNormal = undefined,
 		iconOnclick = undefined,
-		mouseState = ButtonMouseState.Mouseleave,
-		iconPosition = 'front',
-		border = ButtonBorderDefaultStyle,
-		mode = 'normal',
 		children = undefined,
+		style = 'primary',
+		iconPosition = 'front',
+		mouseState = ButtonMouseState.mouseleave,
+		mode = 'normal',
 		...htmlButtonAttributes
 	}: ButtonProps = $props();
 
-	if (mode === 'ingroup') {
+	if (mode === 'group') {
 		getButtonGroupContext().push({
 			instance,
 			iconNormal,
 			iconOnclick,
 			mouseState,
 			iconPosition,
-			border,
 			mode,
 			children,
-			...htmlButtonAttributes
+			...htmlButtonAttributes,
 		});
 	}
 </script>

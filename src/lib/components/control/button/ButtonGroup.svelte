@@ -13,18 +13,7 @@
 	{#if direction === 'row'}
 		{#each buttonsProps as buttonProps, i (i)}
 			{#if i !== 0}
-				<Button
-					{...buttonProps}
-					mode="normal"
-					border={{
-						...buttonProps.border,
-						left: {
-							...buttonProps.border?.left,
-							widthNormal: 0,
-							widthOnhover: 0
-						}
-					}}
-				/>
+				<Button {...buttonProps} mode="normal" --btn-lb-width="0px" />
 			{:else}
 				<Button {...buttonProps} mode="normal" />
 			{/if}
@@ -32,18 +21,7 @@
 	{:else}
 		{#each buttonsProps as buttonProps, i (i)}
 			{#if i !== buttonsProps.length - 1}
-				<Button
-					{...buttonProps}
-					mode="normal"
-					border={{
-						...buttonProps.border,
-						bottom: {
-							...buttonProps.border?.left,
-							widthNormal: 0,
-							widthOnhover: 0
-						}
-					}}
-				/>
+				<Button {...buttonProps} mode="normal" --btn-bb-width="0px" />
 			{:else}
 				<Button {...buttonProps} mode="normal" />
 			{/if}
@@ -60,12 +38,13 @@
 	export { getButtonGroupContext };
 
 	export type ButtonGroupCustomProp = {
-		direction?: 'column' | 'row';
-	} & { children?: Snippet };
+		children?: Snippet;
+		layout?: 'column' | 'row';
+	};
 </script>
 
 <script lang="ts">
-	let { children, direction = 'row' }: ButtonGroupCustomProp = $props();
+	let { children, layout: direction = 'row' }: ButtonGroupCustomProp = $props();
 	let buttonsProps: ButtonProps[] = $state([]);
 
 	setButtonGroupContext(buttonsProps);
